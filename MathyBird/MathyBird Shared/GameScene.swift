@@ -17,6 +17,7 @@ class GameScene: SKScene {
     var cubo = SKSpriteNode()
     var tuboBot = SKSpriteNode()
     var tuboTop = SKSpriteNode()
+    var piso = SKSpriteNode()
     
     
     override func didMove(to view: SKView){
@@ -26,12 +27,24 @@ class GameScene: SKScene {
         cubo = SKSpriteNode(imageNamed: "block")
         tuboBot = SKSpriteNode(imageNamed: "tuboG")
         tuboTop = SKSpriteNode(imageNamed: "tuboG")
+        piso = SKSpriteNode(imageNamed: "piso")
         
         fondo.setScale(0.6)
         fondo.zPosition = -1
         
+        piso.setScale(0.6)
+        piso.position = CGPoint(x: 0, y: -283)
+        piso.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: piso.size.width,
+            height: piso.size.height))
+        piso.physicsBody?.restitution = 0.5
+        piso.physicsBody?.isDynamic = false
+        
         player.position = CGPoint(x: -450, y: 0)
         player.setScale(0.6)
+        physicsWorld.gravity = CGVector(dx: 0, dy: -9.8)
+        player.physicsBody = SKPhysicsBody(circleOfRadius: max(player.size.width / 2,
+            player.size.height / 2))
+
         
         tuboBot.position = CGPoint(x: 0, y: -200)
         tuboBot.setScale(0.6)
@@ -48,6 +61,7 @@ class GameScene: SKScene {
         self.addChild(cubo)
         self.addChild(tuboTop)
         self.addChild(tuboBot)
+        self.addChild(piso)
     }
     
     override func touchesBegan(_ touches: Set <UITouch>, with event: UIEvent?){

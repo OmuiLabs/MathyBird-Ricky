@@ -21,6 +21,13 @@ class GameScene: SKScene {
     var fondo = SKSpriteNode()
     var player = SKSpriteNode()
     
+    var tubos = SKNode()
+    var cubos = SKNode()
+    
+    var moverRemover = SKAction()
+    
+    var comienzo = Bool()
+    
     override func didMove(to view: SKView){
         
         fondo = SKSpriteNode(imageNamed: "fondo")
@@ -29,8 +36,9 @@ class GameScene: SKScene {
         fondo.setScale(0.6)
         fondo.zPosition = -1
         
-         player.position = CGPoint(x: -450, y: 0)
-//        player.position = CGPoint(x: self.frame.width / 2 - player.frame.width, y: self.frame.height / 2)
+        player.position = CGPoint(x: -450, y: 0)
+        player.zPosition = 2
+        player.size = CGSize(width: 125, height: 125)
         player.setScale(0.6)
         physicsWorld.gravity = CGVector(dx: 0, dy: -9.8)
         player.physicsBody = SKPhysicsBody(circleOfRadius: max(
@@ -44,24 +52,52 @@ class GameScene: SKScene {
         self.addChild(fondo)
         self.addChild(player)
 
-        muros()
-        cubos()
         pisos()
     }
     
     override func touchesBegan(_ touches: Set <UITouch>, with event: UIEvent?){
-        player.physicsBody?.velocity = CGVectorMake(0, 0)
-        player.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 90))
+        if comienzo == false {
+            comienzo = true
+            
+            let generar = SKAction.run({
+                () in
+                self.muros()
+                self.block()
+            })
+            
+            let delay = SKAction.wait(forDuration: 3)
+            let  generarDelay = SKAction.sequence([generar, delay])
+            let generarRepetido = SKAction.repeatForever(generarDelay)
+            self.run(generarRepetido)
+            
+            let distanciaTubo = CGFloat(self.frame.width + tubos.frame.width)
+            let distanciaCubo = CGFloat(self.frame.width + cubos.frame.width)
+            
+            // duracion es la duracion para la resta mientras mes pequenio es mas rapido se mueve mas grande mas lento
+            let moverTubo = SKAction.moveBy(x: -distanciaTubo, y: 0, duration: TimeInterval(0.009 * distanciaTubo))
+            let moverCubo = SKAction.moveBy(x: -distanciaCubo, y: 0, duration: TimeInterval(0.009 * distanciaCubo))
+            
+            let quitarTubo = SKAction.removeFromParent()
+            moverRemover = SKAction.sequence([moverTubo, quitarTubo])
+            let quitarCubo = SKAction.removeFromParent()
+            moverRemover = SKAction.sequence([moverCubo, quitarCubo])
+            
+            player.physicsBody?.velocity = CGVectorMake(0, 0)
+            player.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 50))
+        }else{
+            player.physicsBody?.velocity = CGVectorMake(0, 0)
+            player.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 50))
+        }
             
     }
 
     func muros() {
-        let tubos = SKNode()
+        tubos = SKNode()
 
         let tuboBot = SKSpriteNode(imageNamed: "tuboG")
         let tuboTop = SKSpriteNode(imageNamed: "tuboG")
 
-        tuboBot.position = CGPoint(x: 0, y: -200)
+        tuboBot.position = CGPoint(x: 500, y: -200)
         tuboBot.setScale(0.6)
         tuboBot.physicsBody = SKPhysicsBody(rectangleOf: CGSize(
           width: tuboBot.size.width, height: tuboBot.size.height))
@@ -71,7 +107,7 @@ class GameScene: SKScene {
         tuboBot.physicsBody?.isDynamic = false
         tuboBot.physicsBody?.affectedByGravity = false
         
-        tuboTop.position = CGPoint(x: 0, y: 250)
+        tuboTop.position = CGPoint(x: 500, y: 250)
         tuboTop.zRotation = Angle(degrees: 180).radians
         tuboTop.setScale(0.6)
         tuboTop.physicsBody = SKPhysicsBody(rectangleOf: CGSize(
@@ -81,6 +117,8 @@ class GameScene: SKScene {
         tuboTop.physicsBody?.contactTestBitMask = fisica.player
         tuboTop.physicsBody?.isDynamic = false
         tuboTop.physicsBody?.affectedByGravity = false
+        
+        tubos.run(moverRemover)
 
         tubos.addChild(tuboTop)
         tubos.addChild(tuboBot)
@@ -88,20 +126,23 @@ class GameScene: SKScene {
         self.addChild(tubos)
     }
 
-    func cubos() {
-        let cubos = SKNode()
+    func block() {
+        cubos = SKNode()
 
         let cubo = SKSpriteNode(imageNamed: "block")
 
-        cubo.position = CGPoint(x: 0, y: 25)
+        cubo.position = CGPoint(x: 500, y: 25)
         cubo.setScale(0.6)
+        cubo.size = CGSize(width: 100, height: 100)
         cubo.physicsBody = SKPhysicsBody(rectangleOf: CGSize(
-          width: cubo.size.width, height: cubo.size.height))
+          width: cubo.size.width - 49, height: cubo.size.height - 49))
         cubo.physicsBody?.categoryBitMask = fisica.cubo
         cubo.physicsBody?.collisionBitMask = fisica.player
         cubo.physicsBody?.contactTestBitMask = fisica.player
         cubo.physicsBody?.isDynamic = false
         cubo.physicsBody?.affectedByGravity = false
+        
+        cubos.run(moverRemover)
 
         cubos.addChild(cubo)
 

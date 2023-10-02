@@ -28,6 +28,8 @@ class GameScene: SKScene {
     
     var comienzo = Bool()
     
+    let final = SKLabelNode(text: "! YOU LOSE !")
+    
     override func didMove(to view: SKView){
         
         fondo = SKSpriteNode(imageNamed: "fondo")
@@ -184,7 +186,28 @@ class GameScene: SKScene {
     }
     
     override func update(_ currentTime: CFTimeInterval){
+        if player.position.y < -300 {
+            endGame()
+        }else{
+
+            
+        }
+    }
+    
+    func endGame() {
         
+        self.removeAllChildren()
+        self.removeAllActions()
+        
+        final.fontSize = 50
+        final.position = CGPoint(x: 0, y: -250)
+        final.fontName = "Futura Bold"
+        final.fontColor = .red
+        addChild(final)
+        
+        let particle = SKSpriteNode(imageNamed: "final")
+        particle.setScale(1)
+        addChild(particle)
     }
     
 

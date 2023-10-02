@@ -15,6 +15,7 @@
 		EA0F8FD62AC5E216000D68AF /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = EA0F8FC12AC5E215000D68AF /* GameScene.sks */; };
 		EA0F8FD72AC5E216000D68AF /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0F8FC22AC5E215000D68AF /* GameScene.swift */; };
 		EA0F8FD82AC5E216000D68AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA0F8FC32AC5E216000D68AF /* Assets.xcassets */; };
+		EA906AB72ACB456200144150 /* final.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = EA906AB62ACB456200144150 /* final.jpeg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		EA0F8FCD2AC5E216000D68AF /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		EA0F8FD02AC5E216000D68AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EA0F8FD32AC5E216000D68AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		EA906AB62ACB456200144150 /* final.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = final.jpeg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +56,7 @@
 			children = (
 				EA0F8FC02AC5E215000D68AF /* Actions.sks */,
 				EA0F8FC12AC5E215000D68AF /* GameScene.sks */,
+				EA906AB62ACB456200144150 /* final.jpeg */,
 				EA0F8FC22AC5E215000D68AF /* GameScene.swift */,
 				EA0F8FC32AC5E216000D68AF /* Assets.xcassets */,
 			);
@@ -141,6 +144,7 @@
 				EA0F8FD12AC5E216000D68AF /* Main.storyboard in Resources */,
 				EA0F8FD52AC5E216000D68AF /* Actions.sks in Resources */,
 				EA0F8FD42AC5E216000D68AF /* LaunchScreen.storyboard in Resources */,
+				EA906AB72ACB456200144150 /* final.jpeg in Resources */,
 				EA0F8FD82AC5E216000D68AF /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

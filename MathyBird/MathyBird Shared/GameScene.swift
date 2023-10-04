@@ -32,17 +32,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var tubos = SKNode()
     var cubos = SKNode()
     
+    var respuestaCorrecta = SKLabelNode()
+    var respuestaIncorrecta = SKLabelNode()
+    let problemaLabel = SKLabelNode()
+    
     var moverRemover = SKAction()
     
     var comienzo = Bool()
     
     var problema = Int()
     
+    var timer: Timer?
     var tiempoTranscurrido: TimeInterval = 0
     
     let final = SKLabelNode(text: "! YOU LOSE !")
     
-    var velocidad: CGFloat = 0.009
+    var velocidades: CGFloat = 10
     
     override func didMove(to view: SKView){
         
@@ -166,29 +171,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 self.generarOperacionMatematica()
             })
 
-            let delay = SKAction.wait(forDuration: 5)
+            let delay = SKAction.wait(forDuration: 10)
             let  generarDelay = SKAction.sequence([generar, delay])
             let generarRepetido = SKAction.repeatForever(generarDelay)
             self.run(generarRepetido)
 
             let distanciaTubo = CGFloat(self.frame.width + tubos.frame.width)
-            let distanciaCubo = CGFloat(self.frame.width + cubos.frame.width)
-            _ = CGFloat(self.frame.width + cubos.frame.width)
 
-            // duracion es la duracion para la resta mientras mes pequenio es mas rapido se mueve mas grande mas lento
-            let moverTubo = SKAction.moveBy(x: -distanciaTubo, y: 0, duration: TimeInterval(velocidad * distanciaTubo))
-            let moverCubo = SKAction.moveBy(x: -distanciaCubo, y: 0, duration: TimeInterval(velocidad * distanciaCubo))
-            _ = SKAction.moveBy(x: -distanciaCubo, y: 0, duration: TimeInterval(velocidad * distanciaCubo))
+            // duration es la duracion para la resta mientras mas pequenio es mas rapido se mueve mas grande mas lento
+            let moverTubo = SKAction.moveBy(x: -distanciaTubo, y: 0, duration: velocidades)
+
 
             let quitarTubo = SKAction.removeFromParent()
             moverRemover = SKAction.sequence([moverTubo, quitarTubo])
-            let quitarCubo = SKAction.removeFromParent()
-            moverRemover = SKAction.sequence([moverCubo, quitarCubo])
-            _ = SKAction.removeFromParent()
-            moverRemover = SKAction.sequence([moverCubo, quitarCubo])
             
             player.physicsBody?.velocity = CGVectorMake(0, 0)
             player.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 50))
+            
+            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(ajustarVelocidad), userInfo: nil, repeats: true)
+            
         }else{
             player.physicsBody?.velocity = CGVectorMake(0, 0)
             player.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 50))
@@ -294,14 +295,29 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             endGame()
         }else{
             
-            // tiempoTranscurrido += currentTime
-
-            //     if tiempoTranscurrido >= 3.0 {
-            //         velocidad = CGFloat(velocidad - 0.001)
-
-            //         tiempoTranscurrido = 0  // Reinicia el contador
-            //     }
+            
         }
+    }
+    
+    @objc func ajustarVelocidad() {
+        // Reduce la velocidad actual en 0.1
+        tiempoTranscurrido += 1
+        
+        print("tiempo:", tiempoTranscurrido)
+                
+                if tiempoTranscurrido >= 10.0 {
+                    if velocidades != 1{
+                        velocidades -= 1
+                        
+                    }
+                    
+                    // Actualiza la duración de las acciones
+                    let moverTubo = SKAction.moveBy(x: -self.frame.width + tubos.frame.width, y: 0, duration: velocidades)
+                    let quitarTubo = SKAction.removeFromParent()
+                    moverRemover = SKAction.sequence([moverTubo, quitarTubo])
+                    
+                    tiempoTranscurrido = 0  // Reinicia el contador
+                }
     }
     
     func endGame() {
@@ -319,6 +335,4 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         particle.setScale(1)
         addChild(particle)
     }
-
-
 }

@@ -151,7 +151,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         if firstBody.categoryBitMask == fisica.problem && secondBody.categoryBitMask == fisica.player || firstBody.categoryBitMask == fisica.player && secondBody.categoryBitMask == fisica.problem{
             
-//            endGame()
+            endGame()
         }
     }
     

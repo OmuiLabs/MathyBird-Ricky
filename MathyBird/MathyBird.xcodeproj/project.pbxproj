@@ -16,6 +16,7 @@
 		EA0F8FD72AC5E216000D68AF /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0F8FC22AC5E215000D68AF /* GameScene.swift */; };
 		EA0F8FD82AC5E216000D68AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA0F8FC32AC5E216000D68AF /* Assets.xcassets */; };
 		EA906AB72ACB456200144150 /* final.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = EA906AB62ACB456200144150 /* final.jpeg */; };
+		EA906AB92ACB4E0700144150 /* random.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA906AB82ACB4E0700144150 /* random.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,7 @@
 		EA0F8FD02AC5E216000D68AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EA0F8FD32AC5E216000D68AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EA906AB62ACB456200144150 /* final.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = final.jpeg; sourceTree = "<group>"; };
+		EA906AB82ACB4E0700144150 /* random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = random.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 				EA0F8FC12AC5E215000D68AF /* GameScene.sks */,
 				EA906AB62ACB456200144150 /* final.jpeg */,
 				EA0F8FC22AC5E215000D68AF /* GameScene.swift */,
+				EA906AB82ACB4E0700144150 /* random.swift */,
 				EA0F8FC32AC5E216000D68AF /* Assets.xcassets */,
 			);
 			path = "MathyBird Shared";
@@ -156,6 +159,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA906AB92ACB4E0700144150 /* random.swift in Sources */,
 				EA0F8FD72AC5E216000D68AF /* GameScene.swift in Sources */,
 				EA0F8FCE2AC5E216000D68AF /* GameViewController.swift in Sources */,
 				EA0F8FCC2AC5E216000D68AF /* AppDelegate.swift in Sources */,

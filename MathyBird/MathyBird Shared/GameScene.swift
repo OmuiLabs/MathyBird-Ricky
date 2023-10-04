@@ -14,9 +14,17 @@ struct fisica {
   static let piso : UInt32 = 0x1 << 2
   static let tubo : UInt32 = 0x1 << 3
   static let cubo : UInt32 = 0x1 << 4
+static let problem : UInt32 = 0x1 << 5
 }
 
-class GameScene: SKScene {
+struct OperacionMatematica {
+    let operando1: Int
+    let operando2: Int
+    let operador: String
+    let resultadoCorrecto: Int
+}
+
+class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var fondo = SKSpriteNode()
     var player = SKSpriteNode()
@@ -28,9 +36,17 @@ class GameScene: SKScene {
     
     var comienzo = Bool()
     
+    var problema = Int()
+    
+    var tiempoTranscurrido: TimeInterval = 0
+    
     let final = SKLabelNode(text: "! YOU LOSE !")
     
+    var velocidad: CGFloat = 0.009
+    
     override func didMove(to view: SKView){
+        
+        self .physicsWorld.contactDelegate = self
         
         fondo = SKSpriteNode(imageNamed: "fondo")
         player = SKSpriteNode(imageNamed: "magicarp")
@@ -46,8 +62,8 @@ class GameScene: SKScene {
         player.physicsBody = SKPhysicsBody(circleOfRadius: max(
           player.size.width / 2, player.size.height / 2))
         player.physicsBody?.categoryBitMask = fisica.player
-        player.physicsBody?.collisionBitMask = fisica.piso | fisica.tubo | fisica.cubo
-        player.physicsBody?.contactTestBitMask = fisica.piso | fisica.tubo | fisica.cubo
+        player.physicsBody?.collisionBitMask = fisica.piso | fisica.tubo | fisica.cubo | fisica.problem
+        player.physicsBody?.contactTestBitMask = fisica.piso | fisica.tubo | fisica.cubo | fisica.problem
         player.physicsBody?.isDynamic = true
         player.physicsBody?.affectedByGravity = true
 
@@ -55,6 +71,88 @@ class GameScene: SKScene {
         self.addChild(player)
 
         pisos()
+    }
+    
+    func generarOperacionMatematica() {
+        
+        
+        let problemas = SKSpriteNode()
+        
+        problemas.size = CGSize(width: 1, height: 100)
+        problemas.position = CGPoint(x: self.frame.width / 6 + 250 , y: self.frame.height / 6 )
+        problemas.physicsBody = SKPhysicsBody(rectangleOf: problemas.size)
+        problemas.physicsBody?.affectedByGravity = false
+        problemas.physicsBody?.isDynamic = false
+        problemas.physicsBody?.categoryBitMask = fisica.problem
+        problemas.physicsBody?.collisionBitMask = 0
+        problemas.physicsBody?.contactTestBitMask = fisica.player
+        problemas.color = SKColor.blue
+        
+        let randomPosition: CGFloat = [125.0, -75.0].randomElement() ?? 125.0
+        problemas.position.y = tubos.position.y + randomPosition
+        tubos.addChild(problemas)
+        
+           let operando1 = Int.random(in: 1...10)
+           let operando2 = Int.random(in: 1...10)
+           let operadores = ["+", "-"]
+           let operador = operadores.randomElement()!
+           
+           var resultadoCorrecto: Int
+           
+           switch operador {
+           case "+":
+               resultadoCorrecto = operando1 + operando2
+           case "-":
+               resultadoCorrecto = operando1 - operando2
+//           case "*":
+//               resultadoCorrecto = operando1 * operando2
+//           case "/":
+//               resultadoCorrecto = operando1 / operando2
+           default:
+               resultadoCorrecto = 0
+           }
+           
+           let respuestaCorrecta = SKLabelNode(text: "\(resultadoCorrecto)")
+           let respuestaIncorrecta = SKLabelNode(text: "\(resultadoCorrecto + 1)") // Respuesta incorrecta
+           
+           // Posiciones de las respuestas
+           respuestaCorrecta.position = CGPoint(x: self.frame.width / 6 + 265, y: -problemas.position.y)
+            respuestaCorrecta.color = SKColor.black
+           respuestaIncorrecta.position = CGPoint(x: self.frame.width / 6 + 265, y: problemas.position.y)
+        respuestaIncorrecta.color = SKColor.red
+        
+        respuestaCorrecta.fontSize = 50
+        respuestaIncorrecta.fontSize = 50
+        respuestaCorrecta.fontName = "Helvetica-Bold"
+        respuestaIncorrecta.fontName = "Helvetica-Bold"
+        respuestaCorrecta.fontColor = .black
+        respuestaIncorrecta.fontColor = .black
+        
+        let problemaLabel = SKLabelNode(fontNamed: "Helvetica-Bold")
+           problemaLabel.text = "\(operando1) \(operador) \(operando2)"
+           problemaLabel.fontSize = 50
+           problemaLabel.fontColor = .black
+           problemaLabel.position = CGPoint(x: 200, y: 250)
+
+        
+            respuestaCorrecta.run(moverRemover)
+            respuestaIncorrecta.run(moverRemover)
+            problemaLabel.run(moverRemover)
+           
+           // Agregar las respuestas a la escena
+           self.addChild(respuestaCorrecta)
+           self.addChild(respuestaIncorrecta)
+            self.addChild(problemaLabel)
+       }
+    
+    func didBegin(_ contact: SKPhysicsContact) {
+        let firstBody = contact.bodyA
+        let secondBody = contact.bodyB
+        
+        if firstBody.categoryBitMask == fisica.problem && secondBody.categoryBitMask == fisica.player || firstBody.categoryBitMask == fisica.player && secondBody.categoryBitMask == fisica.problem{
+            
+//            endGame()
+        }
     }
     
     override func touchesBegan(_ touches: Set <UITouch>, with event: UIEvent?){
@@ -65,23 +163,28 @@ class GameScene: SKScene {
                 () in
                 self.muros()
                 self.block()
+                self.generarOperacionMatematica()
             })
-            
-            let delay = SKAction.wait(forDuration: 3)
+
+            let delay = SKAction.wait(forDuration: 5)
             let  generarDelay = SKAction.sequence([generar, delay])
             let generarRepetido = SKAction.repeatForever(generarDelay)
             self.run(generarRepetido)
-            
+
             let distanciaTubo = CGFloat(self.frame.width + tubos.frame.width)
             let distanciaCubo = CGFloat(self.frame.width + cubos.frame.width)
-            
+            _ = CGFloat(self.frame.width + cubos.frame.width)
+
             // duracion es la duracion para la resta mientras mes pequenio es mas rapido se mueve mas grande mas lento
-            let moverTubo = SKAction.moveBy(x: -distanciaTubo, y: 0, duration: TimeInterval(0.009 * distanciaTubo))
-            let moverCubo = SKAction.moveBy(x: -distanciaCubo, y: 0, duration: TimeInterval(0.009 * distanciaCubo))
-            
+            let moverTubo = SKAction.moveBy(x: -distanciaTubo, y: 0, duration: TimeInterval(velocidad * distanciaTubo))
+            let moverCubo = SKAction.moveBy(x: -distanciaCubo, y: 0, duration: TimeInterval(velocidad * distanciaCubo))
+            _ = SKAction.moveBy(x: -distanciaCubo, y: 0, duration: TimeInterval(velocidad * distanciaCubo))
+
             let quitarTubo = SKAction.removeFromParent()
             moverRemover = SKAction.sequence([moverTubo, quitarTubo])
             let quitarCubo = SKAction.removeFromParent()
+            moverRemover = SKAction.sequence([moverCubo, quitarCubo])
+            _ = SKAction.removeFromParent()
             moverRemover = SKAction.sequence([moverCubo, quitarCubo])
             
             player.physicsBody?.velocity = CGVectorMake(0, 0)
@@ -119,11 +222,12 @@ class GameScene: SKScene {
         tuboTop.physicsBody?.contactTestBitMask = fisica.player
         tuboTop.physicsBody?.isDynamic = false
         tuboTop.physicsBody?.affectedByGravity = false
-        
-        tubos.run(moverRemover)
 
         tubos.addChild(tuboTop)
         tubos.addChild(tuboBot)
+
+
+        tubos.run(moverRemover)
 
         self.addChild(tubos)
     }
@@ -143,10 +247,10 @@ class GameScene: SKScene {
         cubo.physicsBody?.contactTestBitMask = fisica.player
         cubo.physicsBody?.isDynamic = false
         cubo.physicsBody?.affectedByGravity = false
-        
-        cubos.run(moverRemover)
 
         cubos.addChild(cubo)
+
+        cubos.run(moverRemover)
 
         self.addChild(cubos)
     }
@@ -186,11 +290,17 @@ class GameScene: SKScene {
     }
     
     override func update(_ currentTime: CFTimeInterval){
-        if player.position.y < -300 {
+        if player.position.y < -350 || player.position.x < -625 {
             endGame()
         }else{
-
             
+            // tiempoTranscurrido += currentTime
+
+            //     if tiempoTranscurrido >= 3.0 {
+            //         velocidad = CGFloat(velocidad - 0.001)
+
+            //         tiempoTranscurrido = 0  // Reinicia el contador
+            //     }
         }
     }
     
@@ -205,10 +315,10 @@ class GameScene: SKScene {
         final.fontColor = .red
         addChild(final)
         
-        let particle = SKSpriteNode(imageNamed: "final")
+        let particle = SKSpriteNode(imageNamed: "bird")
         particle.setScale(1)
         addChild(particle)
     }
-    
+
 
 }

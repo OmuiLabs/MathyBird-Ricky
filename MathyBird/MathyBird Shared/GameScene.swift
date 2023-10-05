@@ -10,11 +10,11 @@ import Foundation
 import SwiftUI
 
 struct fisica {
-  static let player : UInt32 = 0x1 << 1
-  static let piso : UInt32 = 0x1 << 2
-  static let tubo : UInt32 = 0x1 << 3
-  static let cubo : UInt32 = 0x1 << 4
-static let problem : UInt32 = 0x1 << 5
+    static let player : UInt32 = 0x1 << 1
+    static let piso : UInt32 = 0x1 << 2
+    static let tubo : UInt32 = 0x1 << 3
+    static let cubo : UInt32 = 0x1 << 4
+    static let problem : UInt32 = 0x1 << 5
 }
 
 struct OperacionMatematica {
@@ -48,6 +48,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let final = SKLabelNode(text: "! YOU LOSE !")
     
     var velocidades: CGFloat = 10
+    var retraso: CGFloat = 10
     
     override func didMove(to view: SKView){
         
@@ -65,16 +66,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         player.setScale(0.6)
         physicsWorld.gravity = CGVector(dx: 0, dy: -9.8)
         player.physicsBody = SKPhysicsBody(circleOfRadius: max(
-          player.size.width / 2, player.size.height / 2))
+            player.size.width / 2, player.size.height / 2))
         player.physicsBody?.categoryBitMask = fisica.player
         player.physicsBody?.collisionBitMask = fisica.piso | fisica.tubo | fisica.cubo | fisica.problem
         player.physicsBody?.contactTestBitMask = fisica.piso | fisica.tubo | fisica.cubo | fisica.problem
         player.physicsBody?.isDynamic = true
         player.physicsBody?.affectedByGravity = true
-
+        
         self.addChild(fondo)
         self.addChild(player)
-
+        
         pisos()
     }
     
@@ -97,33 +98,33 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         problemas.position.y = tubos.position.y + randomPosition
         tubos.addChild(problemas)
         
-           let operando1 = Int.random(in: 1...10)
-           let operando2 = Int.random(in: 1...10)
-           let operadores = ["+", "-"]
-           let operador = operadores.randomElement()!
-           
-           var resultadoCorrecto: Int
-           
-           switch operador {
-           case "+":
-               resultadoCorrecto = operando1 + operando2
-           case "-":
-               resultadoCorrecto = operando1 - operando2
-//           case "*":
-//               resultadoCorrecto = operando1 * operando2
-//           case "/":
-//               resultadoCorrecto = operando1 / operando2
-           default:
-               resultadoCorrecto = 0
-           }
-           
-           let respuestaCorrecta = SKLabelNode(text: "\(resultadoCorrecto)")
-           let respuestaIncorrecta = SKLabelNode(text: "\(resultadoCorrecto + 1)") // Respuesta incorrecta
-           
-           // Posiciones de las respuestas
-           respuestaCorrecta.position = CGPoint(x: self.frame.width / 6 + 265, y: -problemas.position.y)
-            respuestaCorrecta.color = SKColor.black
-           respuestaIncorrecta.position = CGPoint(x: self.frame.width / 6 + 265, y: problemas.position.y)
+        let operando1 = Int.random(in: 1...10)
+        let operando2 = Int.random(in: 1...10)
+        let operadores = ["+", "-"]
+        let operador = operadores.randomElement()!
+        
+        var resultadoCorrecto: Int
+        
+        switch operador {
+        case "+":
+            resultadoCorrecto = operando1 + operando2
+        case "-":
+            resultadoCorrecto = operando1 - operando2
+            //           case "*":
+            //               resultadoCorrecto = operando1 * operando2
+            //           case "/":
+            //               resultadoCorrecto = operando1 / operando2
+        default:
+            resultadoCorrecto = 0
+        }
+        
+        let respuestaCorrecta = SKLabelNode(text: "\(resultadoCorrecto)")
+        let respuestaIncorrecta = SKLabelNode(text: "\(resultadoCorrecto + 1)") // Respuesta incorrecta
+        
+        // Posiciones de las respuestas
+        respuestaCorrecta.position = CGPoint(x: self.frame.width / 6 + 265, y: -problemas.position.y)
+        respuestaCorrecta.color = SKColor.black
+        respuestaIncorrecta.position = CGPoint(x: self.frame.width / 6 + 265, y: problemas.position.y)
         respuestaIncorrecta.color = SKColor.red
         
         respuestaCorrecta.fontSize = 50
@@ -134,21 +135,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         respuestaIncorrecta.fontColor = .black
         
         let problemaLabel = SKLabelNode(fontNamed: "Helvetica-Bold")
-           problemaLabel.text = "\(operando1) \(operador) \(operando2)"
-           problemaLabel.fontSize = 50
-           problemaLabel.fontColor = .black
-           problemaLabel.position = CGPoint(x: 200, y: 250)
-
+        problemaLabel.text = "\(operando1) \(operador) \(operando2)"
+        problemaLabel.fontSize = 50
+        problemaLabel.fontColor = .black
+        problemaLabel.position = CGPoint(x: 200, y: 250)
         
-            respuestaCorrecta.run(moverRemover)
-            respuestaIncorrecta.run(moverRemover)
-            problemaLabel.run(moverRemover)
-           
-           // Agregar las respuestas a la escena
-           self.addChild(respuestaCorrecta)
-           self.addChild(respuestaIncorrecta)
-            self.addChild(problemaLabel)
-       }
+        
+        respuestaCorrecta.run(moverRemover)
+        respuestaIncorrecta.run(moverRemover)
+        problemaLabel.run(moverRemover)
+        
+        // Agregar las respuestas a la escena
+        self.addChild(respuestaCorrecta)
+        self.addChild(respuestaIncorrecta)
+        self.addChild(problemaLabel)
+    }
     
     func didBegin(_ contact: SKPhysicsContact) {
         let firstBody = contact.bodyA
@@ -170,17 +171,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 self.block()
                 self.generarOperacionMatematica()
             })
-
-            let delay = SKAction.wait(forDuration: 10)
+            
+            let delay = SKAction.wait(forDuration: retraso)
             let  generarDelay = SKAction.sequence([generar, delay])
-            let generarRepetido = SKAction.repeatForever(generarDelay)
-            self.run(generarRepetido)
-
+            //            let generarRepetido = SKAction.repeatForever(generarDelay)
+            self.run(generarDelay)
+            
             let distanciaTubo = CGFloat(self.frame.width + tubos.frame.width)
-
+            
             // duration es la duracion para la resta mientras mas pequenio es mas rapido se mueve mas grande mas lento
             let moverTubo = SKAction.moveBy(x: -distanciaTubo, y: 0, duration: velocidades)
-
 
             let quitarTubo = SKAction.removeFromParent()
             moverRemover = SKAction.sequence([moverTubo, quitarTubo])
@@ -194,19 +194,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             player.physicsBody?.velocity = CGVectorMake(0, 0)
             player.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 50))
         }
-            
+        
     }
-
+    
     func muros() {
         tubos = SKNode()
-
+        
         let tuboBot = SKSpriteNode(imageNamed: "tuboG")
         let tuboTop = SKSpriteNode(imageNamed: "tuboG")
-
+        
         tuboBot.position = CGPoint(x: 500, y: -200)
         tuboBot.setScale(0.6)
         tuboBot.physicsBody = SKPhysicsBody(rectangleOf: CGSize(
-          width: tuboBot.size.width, height: tuboBot.size.height))
+            width: tuboBot.size.width, height: tuboBot.size.height))
         tuboBot.physicsBody?.categoryBitMask = fisica.tubo
         tuboBot.physicsBody?.collisionBitMask = fisica.player
         tuboBot.physicsBody?.contactTestBitMask = fisica.player
@@ -217,76 +217,76 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         tuboTop.zRotation = Angle(degrees: 180).radians
         tuboTop.setScale(0.6)
         tuboTop.physicsBody = SKPhysicsBody(rectangleOf: CGSize(
-          width: tuboTop.size.width, height: tuboTop.size.height))
+            width: tuboTop.size.width, height: tuboTop.size.height))
         tuboTop.physicsBody?.categoryBitMask = fisica.tubo
         tuboTop.physicsBody?.collisionBitMask = fisica.player
         tuboTop.physicsBody?.contactTestBitMask = fisica.player
         tuboTop.physicsBody?.isDynamic = false
         tuboTop.physicsBody?.affectedByGravity = false
-
+        
         tubos.addChild(tuboTop)
         tubos.addChild(tuboBot)
-
-
+        
+        
         tubos.run(moverRemover)
-
+        
         self.addChild(tubos)
     }
-
+    
     func block() {
         cubos = SKNode()
-
+        
         let cubo = SKSpriteNode(imageNamed: "block")
-
+        
         cubo.position = CGPoint(x: 500, y: 25)
         cubo.setScale(0.6)
         cubo.size = CGSize(width: 100, height: 100)
         cubo.physicsBody = SKPhysicsBody(rectangleOf: CGSize(
-          width: cubo.size.width - 49, height: cubo.size.height - 49))
+            width: cubo.size.width - 49, height: cubo.size.height - 49))
         cubo.physicsBody?.categoryBitMask = fisica.cubo
         cubo.physicsBody?.collisionBitMask = fisica.player
         cubo.physicsBody?.contactTestBitMask = fisica.player
         cubo.physicsBody?.isDynamic = false
         cubo.physicsBody?.affectedByGravity = false
-
+        
         cubos.addChild(cubo)
-
+        
         cubos.run(moverRemover)
-
+        
         self.addChild(cubos)
     }
-
+    
     func pisos() {
         let pisos = SKNode()
-
+        
         let pisoBot = SKSpriteNode(imageNamed: "piso")
         let pisoTop = SKSpriteNode(imageNamed: "piso")
-
+        
         pisoBot.setScale(0.6)
         pisoBot.position = CGPoint(x: 0, y: -283)
         pisoBot.physicsBody = SKPhysicsBody(rectangleOf: CGSize(
-          width: pisoBot.size.width, height: pisoBot.size.height))
+            width: pisoBot.size.width, height: pisoBot.size.height))
         pisoBot.physicsBody?.categoryBitMask = fisica.piso
         pisoBot.physicsBody?.collisionBitMask = fisica.player
         pisoBot.physicsBody?.contactTestBitMask = fisica.player
         pisoBot.physicsBody?.restitution = 0.3
         pisoBot.physicsBody?.isDynamic = false
         pisoBot.physicsBody?.affectedByGravity = false
-
+        
         pisoTop.setScale(0.6)
         pisoTop.zRotation = Angle(degrees: 180).radians
         pisoTop.position = CGPoint(x: 0, y: 335)
         pisoTop.physicsBody = SKPhysicsBody(rectangleOf: CGSize(
-          width: pisoTop.size.width, height: pisoTop.size.height))
+            width: pisoTop.size.width, height: pisoTop.size.height))
         pisoTop.physicsBody?.categoryBitMask = fisica.piso
         pisoTop.physicsBody?.collisionBitMask = fisica.player
         pisoTop.physicsBody?.contactTestBitMask = fisica.player
         pisoTop.physicsBody?.isDynamic = false
         pisoTop.physicsBody?.affectedByGravity = false
-
+        
         pisos.addChild(pisoTop)
         pisos.addChild(pisoBot)
-
+        
         self.addChild(pisos)
     }
     
@@ -304,26 +304,42 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         tiempoTranscurrido += 1
         
         print("tiempo:", tiempoTranscurrido)
-                
-                if tiempoTranscurrido >= 10.0 {
-                    if velocidades != 1{
-                        velocidades -= 1
-                        
-                    }
-                    
-                    // Actualiza la duración de las acciones
-                    let moverTubo = SKAction.moveBy(x: -self.frame.width + tubos.frame.width, y: 0, duration: velocidades)
-                    let quitarTubo = SKAction.removeFromParent()
-                    moverRemover = SKAction.sequence([moverTubo, quitarTubo])
-                    
-                    tiempoTranscurrido = 0  // Reinicia el contador
-                }
+        
+        if tiempoTranscurrido >= retraso {
+            if velocidades >= 5{
+                velocidades -= 1
+            }
+            
+            if retraso - 1 >= 5 {
+                retraso -= 1
+                print("retraso:", retraso)
+            }
+            
+            let generar = SKAction.run({
+                () in
+                self.muros()
+                self.block()
+                self.generarOperacionMatematica()
+            })
+            
+            let delay = SKAction.wait(forDuration: retraso)
+            let  generarDelay = SKAction.sequence([generar, delay])
+            self.run(generarDelay)
+            
+            // Actualiza la duración de las acciones
+            let moverTubo = SKAction.moveBy(x: -self.frame.width + tubos.frame.width, y: 0, duration: velocidades)
+            let quitarTubo = SKAction.removeFromParent()
+            moverRemover = SKAction.sequence([moverTubo, quitarTubo])
+            
+            tiempoTranscurrido = 0  // Reinicia el contador
+        }
     }
     
     func endGame() {
         
         self.removeAllChildren()
         self.removeAllActions()
+        self.timer?.invalidate()
         
         final.fontSize = 50
         final.position = CGPoint(x: 0, y: -250)

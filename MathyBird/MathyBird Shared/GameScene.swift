@@ -57,7 +57,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         fondo = SKSpriteNode(imageNamed: "fondo")
         player = SKSpriteNode(imageNamed: "magicarp")
         
-        fondo.setScale(0.6)
+        fondo.setScale(0.8)
         fondo.zPosition = -1
         
         player.position = CGPoint(x: -450, y: 0)
@@ -161,7 +161,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+#if os(iOS)
     override func touchesBegan(_ touches: Set <UITouch>, with event: UIEvent?){
+        click()
+    }
+#else
+    override func mouseDown(with event: NSEvent) {
+        click()
+        print("click")
+    }
+#endif
+    
+    func click() {
         if comienzo == false {
             comienzo = true
             
@@ -186,7 +197,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             moverRemover = SKAction.sequence([moverTubo, quitarTubo])
             
             player.physicsBody?.velocity = CGVectorMake(0, 0)
-            player.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 50))
+            player.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 75))
             
             timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(ajustarVelocidad), userInfo: nil, repeats: true)
             
@@ -194,7 +205,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             player.physicsBody?.velocity = CGVectorMake(0, 0)
             player.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 50))
         }
-        
     }
     
     func muros() {

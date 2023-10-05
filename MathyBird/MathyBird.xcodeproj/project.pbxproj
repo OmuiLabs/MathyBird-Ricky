@@ -14,8 +14,14 @@
 		EA0F8FD52AC5E216000D68AF /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = EA0F8FC02AC5E215000D68AF /* Actions.sks */; };
 		EA0F8FD62AC5E216000D68AF /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = EA0F8FC12AC5E215000D68AF /* GameScene.sks */; };
 		EA0F8FD72AC5E216000D68AF /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0F8FC22AC5E215000D68AF /* GameScene.swift */; };
-		EA0F8FD82AC5E216000D68AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA0F8FC32AC5E216000D68AF /* Assets.xcassets */; };
-		EA906AB72ACB456200144150 /* final.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = EA906AB62ACB456200144150 /* final.jpeg */; };
+		EA906ACE2ACF1A5300144150 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA906ACC2ACF1A5300144150 /* Main.storyboard */; };
+		EA906AD32ACF1B0A00144150 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0F8FC22AC5E215000D68AF /* GameScene.swift */; };
+		EA906AD52ACF1B3500144150 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA906AC02ACF1A5200144150 /* AppDelegate.swift */; };
+		EA906AD82ACF1C3700144150 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA906AD72ACF1C3700144150 /* GameViewController.swift */; };
+		EA906AD92ACF1ED700144150 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = EA0F8FC02AC5E215000D68AF /* Actions.sks */; };
+		EA906ADA2ACF1ED700144150 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = EA0F8FC12AC5E215000D68AF /* GameScene.sks */; };
+		EA906ADC2ACF24DC00144150 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA0F8FC32AC5E216000D68AF /* Assets.xcassets */; };
+		EA906ADD2ACF24E000144150 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA0F8FC32AC5E216000D68AF /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,11 +34,22 @@
 		EA0F8FCD2AC5E216000D68AF /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		EA0F8FD02AC5E216000D68AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EA0F8FD32AC5E216000D68AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		EA906AB62ACB456200144150 /* final.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = final.jpeg; sourceTree = "<group>"; };
+		EA906ABE2ACF1A5100144150 /* MathyBird.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MathyBird.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EA906AC02ACF1A5200144150 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		EA906ACD2ACF1A5300144150 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		EA906ACF2ACF1A5300144150 /* MathyBird.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MathyBird.entitlements; sourceTree = "<group>"; };
+		EA906AD72ACF1C3700144150 /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		EA0F8FC52AC5E216000D68AF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA906ABB2ACF1A5100144150 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -47,6 +64,7 @@
 			children = (
 				EA0F8FBF2AC5E215000D68AF /* MathyBird Shared */,
 				EA0F8FCA2AC5E216000D68AF /* MathyBird iOS */,
+				EA906ABF2ACF1A5200144150 /* MathyBird */,
 				EA0F8FC92AC5E216000D68AF /* Products */,
 			);
 			sourceTree = "<group>";
@@ -56,7 +74,6 @@
 			children = (
 				EA0F8FC02AC5E215000D68AF /* Actions.sks */,
 				EA0F8FC12AC5E215000D68AF /* GameScene.sks */,
-				EA906AB62ACB456200144150 /* final.jpeg */,
 				EA0F8FC22AC5E215000D68AF /* GameScene.swift */,
 				EA0F8FC32AC5E216000D68AF /* Assets.xcassets */,
 			);
@@ -67,6 +84,7 @@
 			isa = PBXGroup;
 			children = (
 				EA0F8FC82AC5E216000D68AF /* MathyBird.app */,
+				EA906ABE2ACF1A5100144150 /* MathyBird.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -80,6 +98,17 @@
 				EA0F8FD22AC5E216000D68AF /* LaunchScreen.storyboard */,
 			);
 			path = "MathyBird iOS";
+			sourceTree = "<group>";
+		};
+		EA906ABF2ACF1A5200144150 /* MathyBird */ = {
+			isa = PBXGroup;
+			children = (
+				EA906AD72ACF1C3700144150 /* GameViewController.swift */,
+				EA906AC02ACF1A5200144150 /* AppDelegate.swift */,
+				EA906ACC2ACF1A5300144150 /* Main.storyboard */,
+				EA906ACF2ACF1A5300144150 /* MathyBird.entitlements */,
+			);
+			path = MathyBird;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -102,6 +131,23 @@
 			productReference = EA0F8FC82AC5E216000D68AF /* MathyBird.app */;
 			productType = "com.apple.product-type.application";
 		};
+		EA906ABD2ACF1A5100144150 /* MathyBird */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EA906AD02ACF1A5300144150 /* Build configuration list for PBXNativeTarget "MathyBird" */;
+			buildPhases = (
+				EA906ABA2ACF1A5100144150 /* Sources */,
+				EA906ABB2ACF1A5100144150 /* Frameworks */,
+				EA906ABC2ACF1A5100144150 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MathyBird;
+			productName = MathyBird;
+			productReference = EA906ABE2ACF1A5100144150 /* MathyBird.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -113,6 +159,9 @@
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					EA0F8FC72AC5E216000D68AF = {
+						CreatedOnToolsVersion = 14.3.1;
+					};
+					EA906ABD2ACF1A5100144150 = {
 						CreatedOnToolsVersion = 14.3.1;
 					};
 				};
@@ -131,6 +180,7 @@
 			projectRoot = "";
 			targets = (
 				EA0F8FC72AC5E216000D68AF /* MathyBird iOS */,
+				EA906ABD2ACF1A5100144150 /* MathyBird */,
 			);
 		};
 /* End PBXProject section */
@@ -144,8 +194,18 @@
 				EA0F8FD12AC5E216000D68AF /* Main.storyboard in Resources */,
 				EA0F8FD52AC5E216000D68AF /* Actions.sks in Resources */,
 				EA0F8FD42AC5E216000D68AF /* LaunchScreen.storyboard in Resources */,
-				EA906AB72ACB456200144150 /* final.jpeg in Resources */,
-				EA0F8FD82AC5E216000D68AF /* Assets.xcassets in Resources */,
+				EA906ADD2ACF24E000144150 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA906ABC2ACF1A5100144150 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA906ACE2ACF1A5300144150 /* Main.storyboard in Resources */,
+				EA906AD92ACF1ED700144150 /* Actions.sks in Resources */,
+				EA906ADC2ACF24DC00144150 /* Assets.xcassets in Resources */,
+				EA906ADA2ACF1ED700144150 /* GameScene.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -159,6 +219,16 @@
 				EA0F8FD72AC5E216000D68AF /* GameScene.swift in Sources */,
 				EA0F8FCE2AC5E216000D68AF /* GameViewController.swift in Sources */,
 				EA0F8FCC2AC5E216000D68AF /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA906ABA2ACF1A5100144150 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA906AD82ACF1C3700144150 /* GameViewController.swift in Sources */,
+				EA906AD52ACF1B3500144150 /* AppDelegate.swift in Sources */,
+				EA906AD32ACF1B0A00144150 /* GameScene.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -179,6 +249,14 @@
 				EA0F8FD32AC5E216000D68AF /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		EA906ACC2ACF1A5300144150 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EA906ACD2ACF1A5300144150 /* Base */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -354,6 +432,60 @@
 			};
 			name = Release;
 		};
+		EA906AD12ACF1A5300144150 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MathyBird/MathyBird.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = omni.MathyBird;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		EA906AD22ACF1A5300144150 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MathyBird/MathyBird.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = omni.MathyBird;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -371,6 +503,15 @@
 			buildConfigurations = (
 				EA0F8FDC2AC5E216000D68AF /* Debug */,
 				EA0F8FDD2AC5E216000D68AF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EA906AD02ACF1A5300144150 /* Build configuration list for PBXNativeTarget "MathyBird" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EA906AD12ACF1A5300144150 /* Debug */,
+				EA906AD22ACF1A5300144150 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

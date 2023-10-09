@@ -384,6 +384,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
 //     func reiniciarJuego() {
 //     // Agrega aquí las acciones necesarias para reiniciar el juego.
+    // self.removeAllChildren()
+    // self.removeAllActions()
+
+    // self.didMove(to: self.view!)
+
     
 //     // Oculta el botón de "Jugar de nuevo".
 //     if let retryButton = self.childNode(withName: "retryButton") as? SKSpriteNode {

@@ -64,7 +64,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         player.zPosition = 2
         player.size = CGSize(width: 125, height: 125)
         player.setScale(0.6)
-        physicsWorld.gravity = CGVector(dx: 0, dy: -9.8)
+        physicsWorld.gravity = CGVector(dx: 0, dy: -9)
         player.physicsBody = SKPhysicsBody(circleOfRadius: max(
             player.size.width / 2, player.size.height / 2))
         player.physicsBody?.categoryBitMask = fisica.player
@@ -77,6 +77,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(player)
         
         pisos()
+
+        // let retryButton = SKSpriteNode(imageNamed: "retry_button") // Reemplaza "retry_button" con la imagen que desees utilizar para el botón.
+        // retryButton.position = CGPoint(x: self.size.width / 2, y: self.size.height / 2)
+        // retryButton.name = "retryButton" // Asigna un nombre al botón para identificarlo.
+        // retryButton.isHidden = true // Oculta el botón al principio del juego.
+        // self.addChild(retryButton)
     }
     
     func generarOperacionMatematica() {
@@ -164,6 +170,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 #if os(iOS)
     override func touchesBegan(_ touches: Set <UITouch>, with event: UIEvent?){
         click()
+
+    //     for touch in touches {
+    //     let location = touch.location(in: self)
+        
+    //     if let retryButton = retryButton, retryButton.contains(location) {
+    //         // El jugador tocó el botón "Jugar de nuevo"
+    //         reiniciarJuego() // Llama a la función para reiniciar el juego.
+    //     }
+    // }
+
     }
 #else
     override func mouseDown(with event: NSEvent) {
@@ -360,5 +376,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let particle = SKSpriteNode(imageNamed: "bird")
         particle.setScale(1)
         addChild(particle)
+
+        // if let retryButton = self.childNode(withName: "retryButton") as? SKSpriteNode {
+        // retryButton.isHidden = false
+        // }
     }
+
+//     func reiniciarJuego() {
+//     // Agrega aquí las acciones necesarias para reiniciar el juego.
+    
+//     // Oculta el botón de "Jugar de nuevo".
+//     if let retryButton = self.childNode(withName: "retryButton") as? SKSpriteNode {
+//         retryButton.isHidden = true
+//     }
+    
+//     // Vuelve a cargar la escena actual o realiza otras acciones de reinicio.
+    
+//     // Restablece cualquier otro estado del juego.
+// }
 }
